@@ -67,7 +67,7 @@ void task_speed(void *arg){
 
             if (err == ESP_OK) {
                 // -----calculate-----
-                float meters = (pulse_count / WHEEL_EDGES) * WHEEL_DIA;
+                float meters = (pulse_count / WHEEL_EDGES) * WHEEL_CIRC;
                 spdmt.value = meters / send_rate_s; // in meter/second
                 spdmt.value *= ms2kmh;
 
