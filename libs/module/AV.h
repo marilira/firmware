@@ -45,8 +45,8 @@ typedef struct board_t {
     float speed;
 } board_t;
 
-volatile uint32_t initial_time = false;
-volatile uint32_t final_time = false;
+volatile uint32_t initial_time = 0;
+volatile uint32_t final_time = 0;
 
 char str_buffer[64];
 

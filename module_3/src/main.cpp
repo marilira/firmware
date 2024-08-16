@@ -16,17 +16,17 @@
  *  1.0.0    Raynoan E.    15/07/2023  version esp32
  *  2.0.0    Raynoan E.    15/07/2023  add compatibility to afv extern module 
  *  2.0.1    Jefferson L.  26/07/2023  fix speed measurement
- */
+ **/
 #include <Arduino.h>
 
-#include"system.h"
+#include "system.h"
 #include "module/AV.h"
 #include "task/battery.h"
 
-#define DEBUG false
+#define DEBUG true
 
-#define PIN_SENSOR1  32
-#define PIN_SENSOR2  33
+#define PIN_SENSOR1  16
+#define PIN_SENSOR2  5
 #define MS2KMH       3.6
 #define SIGNAL_DELAY 1000
 
@@ -35,8 +35,8 @@ const uint8_t board_id = 3;
 
 setup_t setup_board;  
 volatile board_t board; // use volatile to all variables used inside Interrupt Service Routine
-volatile uint32_t last_initial = false;
-volatile uint32_t last_final   = false;
+volatile uint32_t last_initial = 0;
+volatile uint32_t last_final   = 0;
 
 // prototypes
 void OnDataSent(const uint8_t *, esp_now_send_status_t); // Datasent callback
@@ -51,8 +51,9 @@ void setup() {
     init_espnow();
 
 #if DEBUG
+    log_i("%x,%x,%x,%x,%x,%x,");
     log_i("Board id: %u", board.id);  // board id 
-    log_i("Set up activation: %s", setup_board.active ? "On" : "Off"); // Showing board status
+    log_i("Set up activation: %s", setup_board.active ? "On" : "Off" ); // Showing board status
 #endif
 
     // Once ESPNow is successfully Init, we will register for Send CB to

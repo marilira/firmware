@@ -26,7 +26,7 @@
 
 #define DEBUG true
 
-#define PIN_SENSOR 32
+#define PIN_SENSOR 16
 #define SIGNAL_DELAY 1000
 
 const uint8_t pin_battery = 36;
@@ -87,6 +87,14 @@ void IRAM_ATTR ISR_send_signal() {
 
 void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
 #if DEBUG
+    log_i("%x, %x, %x, %x, %x, %x", 
+        address_ECU_BOX[0],
+        address_ECU_BOX[1],
+        address_ECU_BOX[2],
+        address_ECU_BOX[3],
+        address_ECU_BOX[4],
+        address_ECU_BOX[5]);
+        
     if (status == ESP_NOW_SEND_SUCCESS)
         log_i("Last Packet Send Status: Delivery success");
     else

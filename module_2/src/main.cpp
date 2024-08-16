@@ -26,7 +26,7 @@
 
 #define DEBUG true
 
-#define PIN_SENSOR 32
+#define PIN_SENSOR 16
 #define SIGNAL_DELAY 1000
 
 const uint8_t pin_battery = 36;
