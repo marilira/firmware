@@ -61,6 +61,13 @@ extern "C" {
 #define NEX_RPM_MIN (float)0
 #define NEX_BAT_MAX (float)12.8 // battery 100%
 #define NEX_BAT_MIN (float)11.0 // battery 0%
+#define NEX_HOUR_MAX (int)4 // initial timer
+#define NEX_HOUR_MIN (int)0
+#define NEX_MINUTE_MAX (int)59
+#define NEX_MINUTE_MIN (int)0
+#define NEX_SECOND_MAX (int)59
+#define NEX_SECOND_MIN (int)0
+#
 
 /**
  * @brief 
