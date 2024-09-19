@@ -186,6 +186,96 @@ void task_display(void *arg) {
             }
         }
 
+        // timer - hour
+        if (xQueueReceive(qh_hour, &recv_sensor, pdMS_TO_TICKS(0))) {
+            // update global system var in a protected environment
+            xSemaphoreTake(sh_global_vars, portMAX_DELAY);
+                system_global.battery = recv_sensor.value;
+            xSemaphoreGive(sh_global_vars);
+
+            /* if there's no error with the nextion initialization */
+            if (nex_init_err == 0) {
+                // print to display
+                snprintf(msg_buffer, 10, "%d", (int)recv_sensor.value);
+                if (current_page_num == NEX_PAGE_ID_ENDURO) {
+                    nextion_component_set_text(nextion_handle, NEX_TEXT_HOUR_L, msg_buffer);
+                }
+                memset(msg_buffer, 0, sizeof(msg_buffer)); // clear buffer
+            }
+        }
+
+        // timer - minutes
+        if (xQueueReceive(qh_minutes, &recv_sensor, pdMS_TO_TICKS(0))) {
+            // update global system var in a protected environment
+            xSemaphoreTake(sh_global_vars, portMAX_DELAY);
+                system_global.battery = recv_sensor.value;
+            xSemaphoreGive(sh_global_vars);
+
+            /* if there's no error with the nextion initialization */
+            if (nex_init_err == 0) {
+                // print to display
+                snprintf(msg_buffer, 10, "%d", (int)recv_sensor.value);
+                if (current_page_num == NEX_PAGE_ID_ENDURO) {
+                    nextion_component_set_text(nextion_handle, NEX_TEXT_MINUTE_L, msg_buffer);
+                }
+                memset(msg_buffer, 0, sizeof(msg_buffer)); // clear buffer
+            }
+        }
+
+        // timer - seconds
+        if (xQueueReceive(qh_seconds, &recv_sensor, pdMS_TO_TICKS(0))) {
+            // update global system var in a protected environment
+            xSemaphoreTake(sh_global_vars, portMAX_DELAY);
+                system_global.battery = recv_sensor.value;
+            xSemaphoreGive(sh_global_vars);
+
+            /* if there's no error with the nextion initialization */
+            if (nex_init_err == 0) {
+                // print to display
+                snprintf(msg_buffer, 10, "%d", (int)recv_sensor.value);
+                if (current_page_num == NEX_PAGE_ID_ENDURO) {
+                    nextion_component_set_text(nextion_handle, NEX_TEXT_SECOND_L, msg_buffer);
+                }
+                memset(msg_buffer, 0, sizeof(msg_buffer)); // clear buffer
+            }
+        }
+
+        // best lap
+        if (xQueueReceive(qh_lap, &recv_sensor, pdMS_TO_TICKS(0))) {
+            // update global system var in a protected environment
+            xSemaphoreTake(sh_global_vars, portMAX_DELAY);
+                system_global.battery = recv_sensor.value;
+            xSemaphoreGive(sh_global_vars);
+
+            /* if there's no error with the nextion initialization */
+            if (nex_init_err == 0) {
+                // print to display
+                snprintf(msg_buffer, 10, "%d", (int)recv_sensor.value);
+                if (current_page_num == NEX_PAGE_ID_ENDURO) {
+                    nextion_component_set_text(nextion_handle, NEX_TEXT_LAP_L, msg_buffer);
+                }
+                memset(msg_buffer, 0, sizeof(msg_buffer)); // clear buffer
+            }
+        }
+
+        // fastest lap time
+        if (xQueueReceive(qh_fastest, &recv_sensor, pdMS_TO_TICKS(0))) {
+            // update global system var in a protected environment
+            xSemaphoreTake(sh_global_vars, portMAX_DELAY);
+                system_global.battery = recv_sensor.value;
+            xSemaphoreGive(sh_global_vars);
+
+            /* if there's no error with the nextion initialization */
+            if (nex_init_err == 0) {
+                // print to display
+                snprintf(msg_buffer, 10, "%d", (int)recv_sensor.value);
+                if (current_page_num == NEX_PAGE_ID_ENDURO) {
+                    nextion_component_set_text(nextion_handle, NEX_TEXT_FASTEST_L, msg_buffer);
+                }
+                memset(msg_buffer, 0, sizeof(msg_buffer)); // clear buffer
+            }
+        }
+
         vTaskDelay(pdMS_TO_TICKS(10));
     }
 }
