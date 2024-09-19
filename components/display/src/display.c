@@ -203,6 +203,15 @@ void callback_touch_event(nextion_on_touch_event_t event){
         );
     }
     else if (event.page_id == NEX_PAGE_ID_LIGHT && event.state == NEXTION_TOUCH_PRESSED) {
+        ESP_LOGI(TAG, "page 1 pressed");
+
+        xTaskNotify(
+            task_handle_user_interface,
+            event.page_id,
+            eSetValueWithOverwrite
+        );
+    }
+    else if (event.page_id == NEX_PAGE_ID_ENDURO && event.state == NEXTION_TOUCH_PRESSED) {
         ESP_LOGI(TAG, "page 2 pressed");
 
         xTaskNotify(
