@@ -50,10 +50,6 @@ void task_display(void *arg) {
         ESP_LOGI(TAG, "page:%i", current_page_num);
         
         vTaskDelay(pdMS_TO_TICKS(2000));
-
-        nextion_page_set(nextion_handle, NEX_PAGE_NAME_DARK);
-        current_page_num = NEX_PAGE_ID_DARK;
-        ESP_LOGI(TAG, "page:%i", current_page_num);
     }
 
     print_task_remaining_space();
@@ -73,10 +69,7 @@ void task_display(void *arg) {
             if (nex_init_err == 0) {
                 // print to display
                 snprintf(msg_buffer, 10, "%d", (int)recv_sensor.value);
-                if (current_page_num == NEX_PAGE_ID_DARK) {
-                    nextion_component_set_text(nextion_handle, NEX_TEXT_SPEED_D, msg_buffer);
-                }
-                else if (current_page_num == NEX_PAGE_ID_LIGHT) {
+                if (current_page_num == NEX_PAGE_ID_LIGHT) {
                     nextion_component_set_text(nextion_handle, NEX_TEXT_SPEED_L, msg_buffer);
                 }
                 memset(msg_buffer, 0, sizeof(msg_buffer)); // clear buffer
@@ -95,10 +88,7 @@ void task_display(void *arg) {
                 percent = convert_to_percent(recv_sensor.value, NEX_RPM_MAX, NEX_RPM_MIN);
 
                 // print to display
-                if (current_page_num == NEX_PAGE_ID_DARK) {
-                    nextion_component_set_value(nextion_handle, NEX_PROGRESSBAR_RPM_D, percent);
-                }
-                else if (current_page_num == NEX_PAGE_ID_LIGHT) {
+                if (current_page_num == NEX_PAGE_ID_LIGHT) {
                     nextion_component_set_value(nextion_handle, NEX_PROGRESSBAR_RPM_L, percent);
                 }
             }
@@ -114,10 +104,7 @@ void task_display(void *arg) {
             /* if there's no error with the nextion initialization */
             if (nex_init_err == 0) {
                 // print to display
-                if (current_page_num == NEX_PAGE_ID_DARK) {
-                    nextion_component_set_boolean(nextion_handle, NEX_DSBUTTON_FUEL_EM_D, (bool)recv_sensor.value);
-                }
-                else if (current_page_num == NEX_PAGE_ID_LIGHT) {
+                if (current_page_num == NEX_PAGE_ID_LIGHT) {
                     nextion_component_set_boolean(nextion_handle, NEX_DSBUTTON_FUEL_EM_L, (bool)recv_sensor.value);
                 }
             }
@@ -134,10 +121,7 @@ void task_display(void *arg) {
             if (nex_init_err == 0) {
                 // print to display
                 snprintf(msg_buffer, 10, "%d", (int)recv_sensor.value);
-                if (current_page_num == NEX_PAGE_ID_DARK) {
-                    nextion_component_set_text(nextion_handle, NEX_TEXT_TEMP_D, msg_buffer);
-                }
-                else if (current_page_num == NEX_PAGE_ID_LIGHT) {
+                if (current_page_num == NEX_PAGE_ID_LIGHT) {
                     nextion_component_set_text(nextion_handle, NEX_TEXT_TEMP_L, msg_buffer);
                 }
                 memset(msg_buffer, 0, sizeof(msg_buffer)); // clear buffer
@@ -155,10 +139,7 @@ void task_display(void *arg) {
             if (nex_init_err == 0) {
                 // print to display
                 snprintf(msg_buffer, 10, "%d%c", (int)recv_sensor.value, NEX_SYMBOL_DEGREE);
-                if (current_page_num == NEX_PAGE_ID_DARK) {
-                    nextion_component_set_text(nextion_handle, NEX_TEXT_ROLL_D, msg_buffer);
-                }
-                else if (current_page_num == NEX_PAGE_ID_LIGHT) {
+                if (current_page_num == NEX_PAGE_ID_LIGHT) {
                     nextion_component_set_text(nextion_handle, NEX_TEXT_ROLL_L, msg_buffer);
                 }
                 memset(msg_buffer, 0, sizeof(msg_buffer)); // clear buffer
@@ -176,10 +157,7 @@ void task_display(void *arg) {
             if (nex_init_err == 0) {
                 // print to display
                 snprintf(msg_buffer, 10, "%d%c", (int)recv_sensor.value, NEX_SYMBOL_DEGREE);
-                if (current_page_num == NEX_PAGE_ID_DARK) {
-                    nextion_component_set_text(nextion_handle, NEX_TEXT_PITCH_D, msg_buffer);
-                }
-                else if (current_page_num == NEX_PAGE_ID_LIGHT) {
+                if (current_page_num == NEX_PAGE_ID_LIGHT) {
                     nextion_component_set_text(nextion_handle, NEX_TEXT_PITCH_L, msg_buffer);
                 }
                 memset(msg_buffer, 0, sizeof(msg_buffer)); // clear buffer
@@ -201,10 +179,7 @@ void task_display(void *arg) {
 
                 // print to display
                 snprintf(msg_buffer, 10, "%d", (int)percent);
-                if (current_page_num == NEX_PAGE_ID_DARK) {
-                    nextion_component_set_text(nextion_handle, NEX_TEXT_BATTERY_D, msg_buffer);
-                }
-                else if (current_page_num == NEX_PAGE_ID_LIGHT) {
+                if (current_page_num == NEX_PAGE_ID_LIGHT) {
                     nextion_component_set_text(nextion_handle, NEX_TEXT_BATTERY_L, msg_buffer);
                 }
                 memset(msg_buffer, 0, sizeof(msg_buffer)); // clear buffer
@@ -220,15 +195,6 @@ void callback_touch_event(nextion_on_touch_event_t event){
 
     if (event.page_id == NEX_PAGE_ID_INTRO && event.state == NEXTION_TOUCH_PRESSED) {
         ESP_LOGI(TAG, "page 0 pressed");
-
-        xTaskNotify(
-            task_handle_user_interface,
-            event.page_id,
-            eSetValueWithOverwrite
-        );
-    }
-    else if (event.page_id == NEX_PAGE_ID_DARK && event.state == NEXTION_TOUCH_PRESSED) {
-        ESP_LOGI(TAG, "page 1 pressed");
 
         xTaskNotify(
             task_handle_user_interface,
@@ -255,16 +221,16 @@ void process_callback_queue(void *arg){
 
         /* change pages logic */
         if (notify_page_id == NEX_PAGE_ID_INTRO){
-            nextion_page_set(nextion_handle, NEX_PAGE_NAME_DARK);
-            current_page_num = NEX_PAGE_ID_DARK;
-        }
-        else if (notify_page_id == NEX_PAGE_ID_DARK){
             nextion_page_set(nextion_handle, NEX_PAGE_NAME_LIGHT);
             current_page_num = NEX_PAGE_ID_LIGHT;
         }
         else if (notify_page_id == NEX_PAGE_ID_LIGHT){
-            nextion_page_set(nextion_handle, NEX_PAGE_NAME_DARK);
-            current_page_num = NEX_PAGE_ID_DARK;
+            nextion_page_set(nextion_handle, NEX_PAGE_NAME_ENDURO);
+            current_page_num = NEX_PAGE_ID_ENDURO;
+        }
+        else if (notify_page_id == NEX_PAGE_ID_ENDURO){
+            nextion_page_set(nextion_handle, NEX_PAGE_NAME_LIGHT);
+            current_page_num = NEX_PAGE_ID_LIGHT;
         }
         else {
             ESP_LOGE(TAG, "undefined touch id");
