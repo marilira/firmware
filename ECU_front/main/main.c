@@ -21,6 +21,7 @@
 #include "task/display.h"
 #include "task/rollover.h"
 #include "task/task_example.h"
+#include "task/timer.h"
 
 #include "espnow_callback.h"
 
@@ -86,5 +87,15 @@ void app_main(void) {
         8,                    // priority
         &th_rollover,         // handler
         APP_CPU_NUM           // core number
+    );
+
+    xTaskCreatePinnedToCore(
+        task_timer,   // task function
+        "timer",      // task name
+        2048,             // stack size
+        NULL, // parameters
+        8,                // priority
+        &th_timer,        // handler
+        APP_CPU_NUM       // core number
     );
 }

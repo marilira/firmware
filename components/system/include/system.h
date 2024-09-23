@@ -50,6 +50,9 @@ typedef enum {
     FUEL_LEVEL,
     FUEL_EMERGENCY,
     BATTERY,
+    HOURS,
+    MINUTES,
+    SECONDS,
     AMBIENT_TEMP,
     ROLLOVER,
     TILT_X,
@@ -65,6 +68,9 @@ typedef struct {
     float fuel_level;
     float fuel_em;
     float battery;
+    int hours;
+    int minutes;
+    int seconds;
     float temp;
     float rollover;
     float tilt_x;
@@ -81,6 +87,9 @@ typedef struct {
     uint8_t fuel_level;      // For fuel level, precision to the nearest percentage
     uint8_t fuel_em;
     uint8_t battery;         // For battery, precision to the nearest percentage
+    uint8_t hours;
+    uint8_t minutes;
+    uint8_t seconds;
     int8_t temp;             // For temperature, precision to the nearest degree
     uint8_t rollover;        // For rollover, 0 or 1
     int8_t tilt_x;           // For tilt, precision to the nearest degree
@@ -108,6 +117,7 @@ extern TaskHandle_t th_fuel_em;
 extern TaskHandle_t th_speed;
 extern TaskHandle_t th_rollover;
 extern TaskHandle_t th_battery;
+extern TaskHandle_t th_timer
 extern TaskHandle_t th_blind_spot;
 extern TaskHandle_t th_display_nextion;
 extern TaskHandle_t th_display_LCD;
@@ -120,6 +130,9 @@ extern QueueHandle_t qh_fuel_emer;
 extern QueueHandle_t qh_battery;
 extern QueueHandle_t qh_temp;
 extern QueueHandle_t qh_rollover;
+extern QueueHandle_t qh_hours;
+extern QueueHandle_t qh_minutes;
+extern QueueHandle_t qh_seconds;
 extern QueueHandle_t qh_tilt_x;
 extern QueueHandle_t qh_tilt_y;
 extern QueueHandle_t qh_tilt_z;
