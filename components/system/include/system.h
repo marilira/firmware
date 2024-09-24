@@ -31,6 +31,7 @@
 #include "esp_mac.h"
 #include "esp_netif.h"
 #include "esp_now.h"
+#include "esp_timer.h"
 #include "lora.h"
 
 #ifdef __cplusplus
@@ -117,7 +118,7 @@ extern TaskHandle_t th_fuel_em;
 extern TaskHandle_t th_speed;
 extern TaskHandle_t th_rollover;
 extern TaskHandle_t th_battery;
-extern TaskHandle_t th_timer
+extern TaskHandle_t th_timer;
 extern TaskHandle_t th_blind_spot;
 extern TaskHandle_t th_display_nextion;
 extern TaskHandle_t th_display_LCD;
