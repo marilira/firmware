@@ -49,8 +49,11 @@ extern "C" {
 #define NEX_TEXT_HOUR_L         "p2t2"
 #define NEX_TEXT_MINUTE_L       "p2t3"
 #define NEX_TEXT_SECOND_L       "p2t5"
-#define NEX_TEXT_LAP_L          "p2t0"
-#define NEX_TEXT_FASTEST_L      "p2t1"
+#define NEX_TEXT_LAP_L          "p2t4"
+#define NEX_TEXT_LAP_MINUTES_L  "p2t6"
+#define NEX_TEXT_LAP_SECONDS_L  "p2t7"
+#define NEX_BUTTON_LAP_L        "b0"
+#define NEX_DSBUTTON_PAUSE_L    "bt0"
 
 /* nextion symbols */
 #define NEX_SYMBOL_DEGREE  0xB0 // hex value for °
