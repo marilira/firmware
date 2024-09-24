@@ -196,7 +196,7 @@ void task_display(void *arg) {
             /* if there's no error with the nextion initialization */
             if (nex_init_err == 0) {
                 // print to display
-                snprintf(msg_buffer, 10, "%d", (int)recv_sensor.value);
+                snprintf(msg_buffer, 10, "%02d", (int)recv_sensor.value);
                 if (current_page_num == NEX_PAGE_ID_ENDURO) {
                     nextion_component_set_text(nextion_handle, NEX_TEXT_HOUR_L, msg_buffer);
                 }
@@ -214,7 +214,7 @@ void task_display(void *arg) {
             /* if there's no error with the nextion initialization */
             if (nex_init_err == 0) {
                 // print to display
-                snprintf(msg_buffer, 10, "%d", (int)recv_sensor.value);
+                snprintf(msg_buffer, 10, "%02d", (int)recv_sensor.value);
                 if (current_page_num == NEX_PAGE_ID_ENDURO) {
                     nextion_component_set_text(nextion_handle, NEX_TEXT_MINUTE_L, msg_buffer);
                 }
@@ -232,7 +232,7 @@ void task_display(void *arg) {
             /* if there's no error with the nextion initialization */
             if (nex_init_err == 0) {
                 // print to display
-                snprintf(msg_buffer, 10, "%d", (int)recv_sensor.value);
+                snprintf(msg_buffer, 10, "%02d", (int)recv_sensor.value);
                 if (current_page_num == NEX_PAGE_ID_ENDURO) {
                     nextion_component_set_text(nextion_handle, NEX_TEXT_SECOND_L, msg_buffer);
                 }

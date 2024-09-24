@@ -27,8 +27,8 @@ void task_timer(void *arg){
         int time = (int) (current_time - start_time);
 
         hours.value = (float) (time / 3600);
-        minutes.value = (time / 60) - (hours.value * 60)
-        seconds.value = time - (minutes.value * 60)
+        minutes.value = (time / 60) - (hours.value * 60);
+        seconds.value = time - (minutes.value * 60);
         
         xQueueSend(qh_hours, &hours, pdMS_TO_TICKS(0));
         xQueueSend(qh_minutes, &minutes, pdMS_TO_TICKS(0)); 
