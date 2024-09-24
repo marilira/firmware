@@ -259,7 +259,7 @@ void task_display(void *arg) {
         }
 
         // lap time - minutes
-        if (xQueueReceive(qh_fastest, &recv_sensor, pdMS_TO_TICKS(0))) {
+        if (xQueueReceive(qh_lap_minutes, &recv_sensor, pdMS_TO_TICKS(0))) {
             update global system var in a protected environment
            xSemaphoreTake(sh_global_vars, portMAX_DELAY);
                system_global.battery = recv_sensor.value;
@@ -277,7 +277,7 @@ void task_display(void *arg) {
         }
 
         // lap time - seconds
-        if (xQueueReceive(qh_fastest, &recv_sensor, pdMS_TO_TICKS(0))) {
+        if (xQueueReceive(qh_lap_seconds, &recv_sensor, pdMS_TO_TICKS(0))) {
             update global system var in a protected environment
            xSemaphoreTake(sh_global_vars, portMAX_DELAY);
                system_global.battery = recv_sensor.value;
