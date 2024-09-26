@@ -41,6 +41,7 @@ QueueHandle_t qh_hours;
 QueueHandle_t qh_minutes;
 QueueHandle_t qh_seconds;
 QueueHandle_t qh_temp;
+QueueHandle_t qh_laps;
 QueueHandle_t qh_rollover;
 QueueHandle_t qh_tilt_x;
 QueueHandle_t qh_tilt_y;
@@ -132,6 +133,7 @@ void system_queue_init(void) {
     qh_hours      = xQueueCreate(QUEUE_BUFFER_SIZE, sizeof(sensor_t));
     qh_minutes   = xQueueCreate(QUEUE_BUFFER_SIZE, sizeof(sensor_t));
     qh_seconds    = xQueueCreate(QUEUE_BUFFER_SIZE, sizeof(sensor_t));
+    qh_laps    = xQueueCreate(QUEUE_BUFFER_SIZE, sizeof(sensor_t));
     qh_temp      = xQueueCreate(QUEUE_BUFFER_SIZE, sizeof(sensor_t));
     qh_tilt_x    = xQueueCreate(QUEUE_BUFFER_SIZE, sizeof(sensor_t));
     qh_tilt_y    = xQueueCreate(QUEUE_BUFFER_SIZE, sizeof(sensor_t));

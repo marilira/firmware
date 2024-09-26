@@ -54,6 +54,7 @@ typedef enum {
     HOURS,
     MINUTES,
     SECONDS,
+    LAPS,
     AMBIENT_TEMP,
     ROLLOVER,
     TILT_X,
@@ -72,6 +73,7 @@ typedef struct {
     int hours;
     int minutes;
     int seconds;
+    int laps;
     float temp;
     float rollover;
     float tilt_x;
@@ -134,6 +136,7 @@ extern QueueHandle_t qh_rollover;
 extern QueueHandle_t qh_hours;
 extern QueueHandle_t qh_minutes;
 extern QueueHandle_t qh_seconds;
+extern QueueHandle_t qh_laps;
 extern QueueHandle_t qh_tilt_x;
 extern QueueHandle_t qh_tilt_y;
 extern QueueHandle_t qh_tilt_z;
